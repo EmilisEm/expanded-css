@@ -1,0 +1,39 @@
+package cssParser;
+import java_cup.runtime.Symbol;
+
+terminal LPAR;
+terminal RPAR;
+terminal COM;
+terminal LBRACE;
+terminal RBRACE;
+terminal COL;
+terminal QMK;
+terminal RAROW;
+terminal SCOL;
+terminal IMPORTANT;
+terminal CLASS;
+terminal SIZE;
+terminal URL;
+terminal MEDIA;
+terminal ID;
+terminal TAG;
+terminal ATTRIBUTE;
+terminal ATTRIBUTE_VALUE;
+terminal CHILD_SELECTOR;
+terminal OR;
+terminal START_CON;
+terminal END_CON;
+terminal SIZE_CON;
+terminal ORIENTATION;
+terminal ORIENTATION_TYPE;
+terminal START_INH;
+terminal END_INH;
+terminal FONT_FAMILY;
+terminal FONT;
+
+
+non terminal starter;
+
+starter ::= COM LBRACE {
+
+};

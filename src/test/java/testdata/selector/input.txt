@@ -1,0 +1,16 @@
+.this (DiV) {
+    should-work: i_hope 1px
+}
+.__also-this{should-work:I_know 2px;}
+
+#this>DIV SPAN>DIV.id:hover !important {
+    should-work: i_hope 1px;
+}
+
+       .kas-skaitys-to-usai-grazus (._kas, #neturi, #usu, #__pats, ._-grazus) {}
+
+
+
+
+
+.klase>#vardas div !important (.paveldi,DIV,#Ka) {}

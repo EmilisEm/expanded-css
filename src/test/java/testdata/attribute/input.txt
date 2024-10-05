@@ -1,0 +1,37 @@
+.toast {
+    attribute: value1
+}
+
+.toast {
+    attribute: value2;
+}
+
+.toast {
+    attribute: 333px #123456 #abcdef value value value;
+}
+
+.toast {
+    attribute: value value value value value value
+}
+
+
+
+    .toast {
+        __attribute_value-longAnd_different_      :      value value value;
+    }
+
+.toast {
+    value: |min-width: 530px ? 333px : 122px| value value;
+}
+
+.toast {
+    height: |orientation: vertical ? 222px : value|;
+}
+
+.toast {
+    height: |orientation: vertical ? 222px : value|
+}
+
+.toast {
+    height: |orientation: horizontal? 222px : value|
+}
