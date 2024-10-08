@@ -32,6 +32,10 @@ Programa skenuoja įvesties failą `{input}` ir saugo leksemas, kurias pavyko nu
 
 ### Paleidimas
 
-1. Pridėti `mvn` prie `path`
-2. Paleisti komandą `mvn exec:java -D exec.mainClass="Main" -D exec.args="{input} {output_good} {output_bad}"`
+1. Pridėti `mvn` prie `path`.
+2. Paleisti komandą `mvn compile`, kad sugeneruoti klases.
+4. Paleisti žemiau esančią komandą vietoj `{input}`, `{output_good}`, `{output_bad}` įrašius failų pavadinimus.
+```
+mvn exec:java -D exec.mainClass="Main" -D exec.args="{input} {output_good} {output_bad}"
+```
 

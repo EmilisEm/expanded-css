@@ -38,8 +38,8 @@ public class Main {
         var lexer = new Lexer(input);
         Symbol symbol = null;
         System.out.print("# Parsed lexemes\r\n\r\n");
-        System.out.print("| Lexeme name               | Lexeme value              |\r\n");
-        System.out.print("|---------------------------|---------------------------|\r\n");
+        System.out.print("| Lexeme name                       | Lexeme value                              |\r\n");
+        System.out.print("|-----------------------------------|-------------------------------------------|\r\n");
         do {
             try {
                 symbol = lexer.next_token();
@@ -57,6 +57,7 @@ public class Main {
         } while (symbol == null || symbol.sym != sym.EOF);
     }
 
+    // debug method
     private static String getSymbolDebug(Symbol symbol) {
         return "%s %s".formatted(getFieldName(symbol.sym), Objects.requireNonNullElse(symbol.value, ""));
     }

@@ -3,5 +3,5 @@ div.head img(div, .head,#id)!important{
 	border-left: medium;
 	border-right: medium none;
 	border-top: medium none;
-	color: (min-width: 500px ? red : green)
+	color: |min-width: 500px ? red : green|
 }
