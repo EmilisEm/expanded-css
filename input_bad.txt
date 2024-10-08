@@ -1,0 +1,16 @@
+body {
+	background-attachment: fixed background-color: white;
+    margin: 2em 1em 2em 70px
+}
+th ??? {
+	font-family: arial, sans-serif
+}
+td ({
+	font-family: arial, sans-serif
+})
+h1 {(
+	color: #0050b2; font-family: tahoma, verdana, "myriad web", syntax, sans-serif; font-weight: normal; text-align: left
+})
+h2 (div>th) {
+	color: #0050b2; font-family: tahoma, verdana, "myriad web", syntax, sans-serif; font-weight: normal; text-align: left
+}

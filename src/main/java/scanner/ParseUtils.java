@@ -19,14 +19,8 @@ public abstract class ParseUtils {
         throw new IllegalArgumentException("url is of invalid content");
     }
 
-    public static MediaType parseMedia(String media) {
-        var mediaName = media.substring(7);
-
-        return switch (mediaName) {
-            case "Aural" -> MediaType.AURAL;
-            case "Screen" -> MediaType.SCREEN;
-            default -> throw new IllegalArgumentException("Unsupported @media type");
-        };
+    public static String parseMedia(String media) {
+        return media.substring(7);
     }
 
     public static Symbol getSelector(String selector) {

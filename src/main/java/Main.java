@@ -5,14 +5,31 @@ import scanner.Lexer;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.lang.reflect.Field;
 import java.util.Objects;
 
 public class Main {
     public static void main(String[] args) {
+        String in;
         FileReader input = null;
+
+        if (args.length != 3) {
+            System.err.println("Not enough argument. Example execution `java Main input.txt out_good.txt out_bad.txt`");
+            System.exit(1);
+        }
+
+        in = args[0];
         try {
-            input = new FileReader("src/test/java/testdata/basic/input.txt");
+            System.setOut(new PrintStream(args[1]));
+            System.setErr(new PrintStream(args[2]));
+        } catch (FileNotFoundException e) {
+            System.err.println("Failed to open specified files");
+            System.exit(1);
+        }
+
+        try {
+            input = new FileReader(in);
         } catch (FileNotFoundException e) {
             System.err.println(e.getMessage());
             System.exit(1);
@@ -20,17 +37,17 @@ public class Main {
 
         var lexer = new Lexer(input);
         Symbol symbol = null;
-        System.out.print("# Parsed lexemes. Errors in different file\r\n\r\n");
-        System.out.print("| Lexeme name     | Lexeme value    |\r\n");
-        System.out.print("|_________________|_________________|\r\n");
+        System.out.print("# Parsed lexemes\r\n\r\n");
+        System.out.print("| Lexeme name               | Lexeme value              |\r\n");
+        System.out.print("|---------------------------|---------------------------|\r\n");
         do {
             try {
                 symbol = lexer.next_token();
-                // debug print
-                System.out.println(getSymbolDebug(symbol));
+                // debug
+                // System.out.println(getSymbolDebug(symbol));
 
                 // actual
-                // System.out.printf("| %-15s | %-15s |\r\n", getFieldName(symbol.sym), Objects.requireNonNullElse(symbol.value, ""));
+                System.out.printf("| %-25s | %-25s |\r\n", getFieldName(symbol.sym), Objects.requireNonNullElse(symbol.value, ""));
             } catch (IOException e) {
                 System.err.println(e.getMessage());
                 System.exit(1);

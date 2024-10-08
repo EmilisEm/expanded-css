@@ -5,6 +5,9 @@ import java_cup.runtime.Symbol;
 
 import java.io.*;
 import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Stream;
 
 public class AnswerReader extends BufferedReader {
 
@@ -13,11 +16,22 @@ public class AnswerReader extends BufferedReader {
     }
 
     public Symbol readNextSymbol() throws IOException {
-        String[] line = this.readLine().split(" ");
+        String input = this.readLine();
+        List<String> line;
 
-        return switch (line.length) {
-            case 1 -> new Symbol(parseSym(line[0]));
-            case 2 -> new Symbol(parseSym(line[0]), line[1]);
+        if (input.contains("\"")) {
+            String[] words = input.split("\"");
+            words[1] = "\"%s\"".formatted(words[1]);
+
+            line = Stream.of(words).map(String::trim).toList();
+        } else {
+            line = Arrays.stream(input.split(" ")).toList();
+        }
+
+
+        return switch (line.size()) {
+            case 1 -> new Symbol(parseSym(line.getFirst()));
+            case 2 -> new Symbol(parseSym(line.getFirst()), line.get(1));
             default -> throw new IOException();
         };
     }

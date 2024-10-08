@@ -1,0 +1,7 @@
+div.head img(div, .head,#id)!important{
+	border-bottom:  medium          none;
+	border-left: medium;
+	border-right: medium none;
+	border-top: medium none;
+	color: (min-width: 500px ? red : green)
+}

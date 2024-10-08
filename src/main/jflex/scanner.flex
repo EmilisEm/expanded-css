@@ -2,7 +2,6 @@ package scanner;
 
 import java_cup.runtime.Symbol;
 import scanner.ParseUtils;
-import scanner.MediaType;
 import cssParser.sym;
 import java.io.IOException;
 
