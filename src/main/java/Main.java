@@ -38,8 +38,8 @@ public class Main {
         var lexer = new Lexer(input);
         Symbol symbol = null;
         System.out.print("# Parsed lexemes\r\n\r\n");
-        System.out.print("| Lexeme name                       | Lexeme value                              |\r\n");
-        System.out.print("|-----------------------------------|-------------------------------------------|\r\n");
+        System.out.print("| Lexeme name               | Lexeme value                              |\r\n");
+        System.out.print("|---------------------------|-------------------------------------------|\r\n");
         do {
             try {
                 symbol = lexer.next_token();
@@ -47,7 +47,8 @@ public class Main {
                 // System.out.println(getSymbolDebug(symbol));
 
                 // actual
-                System.out.printf("| %-25s | %-25s |\r\n", getFieldName(symbol.sym), Objects.requireNonNullElse(symbol.value, ""));
+                // To lazy to make it so that the columns are perfect width. Looks good enough in markdown
+                System.out.printf("| %-25s | %-41s |\r\n", getFieldName(symbol.sym), Objects.requireNonNullElse(symbol.value, ""));
             } catch (IOException e) {
                 System.err.println(e.getMessage());
                 System.exit(1);
