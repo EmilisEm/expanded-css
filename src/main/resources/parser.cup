@@ -1,29 +1,22 @@
 package cssParser;
+
 import java_cup.runtime.*;
+import parserUtils.nonterminals.*;
 
 terminal LPAR, RPAR, COM, LBRACE, RBRACE, COL,
             QMK, RAROW, SCOL, IMPORTANT, CHILD_SELECTOR, OR, START_CON, END_CON, START_INH, END_INH;
 terminal String CLASS, SIZE, URL, MEDIA, ID, TAG,
             ATTRIBUTE, ATTRIBUTE_VALUE, ORIENTATION, ORIENTATION_TYPE, FONT_FAMILY, FONT, SIZE_CON;
 
-non terminal Start;
-non terminal StyleSheet;
-non terminal StyleDefinition;
-non terminal MediaDefinition;
-non terminal Selector;
-non terminal Block;
-non terminal StyleProperty;
-non terminal StylePropertyName;
-non terminal StylePropertyValue;
-non terminal Relationship;
-non terminal Inheritance;
-non terminal ImportantDefinition;
-non terminal Ternary;
-non terminal Condition;
-non terminal WidthCondition;
-non terminal HeightCondition;
-non terminal OrientationCondition;
-non terminal Inherited;
-non terminal MediaQuery;
+non terminal START;
+non terminal STYLESHEET;
+non terminal SELECTOR;
+non terminal BLOCK;
+non terminal STYLE_PROPERTY;
+non terminal Inheritance INHERITANCE;
+non terminal TERNARY;
+non terminal CONDITION;
+non terminal ORIENTATION_CONDITION;
+non terminal MEDIA_QUERY;
 
 Start ::= StyleSheet;
