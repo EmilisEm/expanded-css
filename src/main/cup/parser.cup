@@ -1,9 +1,6 @@
 package cssParser;
 import java_cup.runtime.*;
 
-init with {: scanner.init(); :}
-scan with {: scanner.next_token(); :}
-
 terminal LPAR, RPAR, COM, LBRACE, RBRACE, COL,
             QMK, RAROW, SCOL, IMPORTANT, CHILD_SELECTOR, OR, START_CON, END_CON, START_INH, END_INH;
 terminal String CLASS, SIZE, URL, MEDIA, ID, TAG,
@@ -28,3 +25,5 @@ non terminal HeightCondition;
 non terminal OrientationCondition;
 non terminal Inherited;
 non terminal MediaQuery;
+
+Start ::= StyleSheet;
