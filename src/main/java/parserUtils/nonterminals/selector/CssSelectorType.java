@@ -7,7 +7,9 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum CssSelectorType {
-    CLASS("CLASS"), ID("ID"), TAG("TAG");
+    CLASS("CLASS"),
+    ID("ID"),
+    TAG("TAG");
 
     private final String type;
 }
