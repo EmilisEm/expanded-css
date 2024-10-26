@@ -47,6 +47,11 @@
                         <goals>
                             <goal>generate</goal>
                         </goals>
+                        <configuration>
+                            <lexDefinitions>
+                                <lexDefinition>src/main/resources</lexDefinition>
+                            </lexDefinitions>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -64,6 +69,9 @@
                         </configuration>
                     </execution>
                 </executions>
+                <configuration>
+                    <cupSourceDirectory>src/main/resources</cupSourceDirectory>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
