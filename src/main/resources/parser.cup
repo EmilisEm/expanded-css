@@ -9,8 +9,9 @@ terminal String CLASS, SIZE, URL, MEDIA, ID, TAG,
             ATTRIBUTE, ATTRIBUTE_VALUE, ORIENTATION, ORIENTATION_TYPE, FONT_FAMILY, FONT, SIZE_CON;
 
 non terminal START;
-non terminal STYLESHEET;
-non terminal SELECTOR;
+non terminal STYLE_SHEET;
+non terminal CssSelector SELECTOR;
+non terminal SelectorGroup SELECTOR_GROUP;
 non terminal BLOCK;
 non terminal STYLE_PROPERTY;
 non terminal Inheritance INHERITANCE;
@@ -19,4 +20,4 @@ non terminal CONDITION;
 non terminal ORIENTATION_CONDITION;
 non terminal MEDIA_QUERY;
 
-Start ::= StyleSheet;
+START ::= STYLE_SHEET;
