@@ -4,6 +4,7 @@ import java_cup.runtime.*;
 import parserUtils.nonterminals.*;
 import java.util.List;
 import parserUtils.nonterminals.styleproperty.propertyvalue.*;
+import parserUtils.nonterminals.styleproperty.*;
 import parserUtils.nonterminals.selector.*;
 import parserUtils.nonterminals.Inheritance;
 
@@ -21,16 +22,16 @@ non terminal MEDIA_BLOCK_LIST;
 
 non terminal CssSelector SELECTOR;
 non terminal SelectorGroup SELECTOR_GROUP;
-non terminal SELECTOR_RELATIONSHIP;
+non terminal SelectorRelationshipType SELECTOR_RELATIONSHIP;
 
 non terminal Inheritance INHERITANCE;
-non terminal INHERITANCE_LIST;
-non terminal SELECTOR_VALUE;
+non terminal List<CssSelectorValue> INHERITANCE_LIST;
+non terminal CssSelectorValue SELECTOR_VALUE;
 
-non terminal STYLE_PROPERTY;
-non terminal STYLE_PROPERTY_LIST;
-non terminal STYLE_PROPERTY_VALUE;
-non terminal STYLE_PROPERTY_VALUE_LIST;
+non terminal StyleProperty STYLE_PROPERTY;
+non terminal List<StyleProperty> STYLE_PROPERTY_LIST;
+non terminal PropertyValue STYLE_PROPERTY_VALUE;
+non terminal List<PropertyValue> STYLE_PROPERTY_VALUE_LIST;
 non terminal List<String> FONT_LIST;
 
 non terminal Ternary TERNARY;

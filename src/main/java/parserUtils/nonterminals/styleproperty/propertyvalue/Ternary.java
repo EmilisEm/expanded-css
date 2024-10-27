@@ -9,10 +9,10 @@ import java.util.List;
 @Setter
 @Getter
 @AllArgsConstructor
-public class Ternary extends SelectorPropertyValue {
+public class Ternary extends PropertyValue {
     private TernaryCondition condition;
-    private List<SelectorPropertyValue> rightValue;
-    private List<SelectorPropertyValue> leftValue;
+    private List<PropertyValue> rightValue;
+    private List<PropertyValue> leftValue;
 
     @Override
     public String getValue() {
@@ -23,7 +23,7 @@ public class Ternary extends SelectorPropertyValue {
                 valueToString(leftValue));
     }
 
-    public static String valueToString(List<SelectorPropertyValue> values) {
+    public static String valueToString(List<PropertyValue> values) {
         StringBuilder ac = new StringBuilder();
         values.forEach(it -> ac.append(it.getValue()));
 

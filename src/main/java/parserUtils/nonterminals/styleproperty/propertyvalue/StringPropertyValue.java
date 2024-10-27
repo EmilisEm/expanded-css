@@ -7,6 +7,6 @@ import lombok.Setter;
 @Setter
 @Getter
 @AllArgsConstructor
-public class StringPropertyValue extends SelectorPropertyValue {
+public class StringPropertyValue extends PropertyValue {
     private String value;
 }
