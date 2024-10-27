@@ -15,7 +15,7 @@ terminal String CLASS, ID, TAG;
 terminal String URL, SIZE, ATTRIBUTE, ATTRIBUTE_VALUE, FONT_FAMILY, FONT;
 terminal String MEDIA, ORIENTATION, ORIENTATION_TYPE, SIZE_CON;
 
-non terminal STYLE_SHEET;
+non terminal StyleSheet STYLE_SHEET;
 non terminal Block BLOCK;
 non terminal List<Block> BLOCK_LIST;
 non terminal MediaBlock MEDIA_BLOCK;
