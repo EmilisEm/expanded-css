@@ -2,6 +2,10 @@ package cssParser;
 
 import java_cup.runtime.*;
 import parserUtils.nonterminals.*;
+import java.util.List;
+import parserUtils.nonterminals.styleproperty.propertyvalue.*;
+import parserUtils.nonterminals.selector.*;
+import parserUtils.nonterminals.Inheritance;
 
 terminal LPAR, RPAR, COM, LBRACE, RBRACE, COL,
             QMK, RAROW, SCOL, IMPORTANT, CHILD_SELECTOR, OR, START_CON, END_CON, START_INH, END_INH;
@@ -9,7 +13,6 @@ terminal String CLASS, ID, TAG;
 terminal String URL, SIZE, ATTRIBUTE, ATTRIBUTE_VALUE, FONT_FAMILY, FONT;
 terminal String MEDIA, ORIENTATION, ORIENTATION_TYPE, SIZE_CON;
 
-non terminal START;
 non terminal STYLE_SHEET;
 non terminal BLOCK;
 non terminal BLOCK_LIST;
@@ -28,29 +31,22 @@ non terminal STYLE_PROPERTY;
 non terminal STYLE_PROPERTY_LIST;
 non terminal STYLE_PROPERTY_VALUE;
 non terminal STYLE_PROPERTY_VALUE_LIST;
-non terminal FONT_LIST;
+non terminal List<String> FONT_LIST;
 
-non terminal TERNARY;
-non terminal CONDITION;
-non terminal CONDITION_NAME;
-non terminal CONDITION_VALUE;
-non terminal CONDITION_OPTION;
-
-START ::= STYLE_SHEET;
+non terminal Ternary TERNARY;
+non terminal TernaryCondition CONDITION;
 
 STYLE_SHEET ::= BLOCK_LIST MEDIA_BLOCK_LIST;
 
 BLOCK_LIST ::= BLOCK_LIST BLOCK
     | BLOCK
-    |
     ;
 
 MEDIA_BLOCK_LIST ::= MEDIA_BLOCK_LIST MEDIA_BLOCK
     | MEDIA_BLOCK
-    |
     ;
 
-BLOCK ::= SELECTOR LRACE STYLE_PROPERTY_LIST RBRACE;
+BLOCK ::= SELECTOR LBRACE STYLE_PROPERTY_LIST RBRACE;
 
 SELECTOR ::= SELECTOR_GROUP INHERITANCE IMPORTANT
     | SELECTOR_GROUP INHERITANCE
@@ -87,6 +83,10 @@ STYLE_PROPERTY ::= ATTRIBUTE COL STYLE_PROPERTY_VALUE_LIST
     | FONT_FAMILY COL TERNARY
     ;
 
+FONT_LIST ::= FONT_LIST FONT
+    | FONT
+    ;
+
 STYLE_PROPERTY_VALUE_LIST ::= STYLE_PROPERTY_VALUE_LIST STYLE_PROPERTY_VALUE
     | STYLE_PROPERTY_VALUE
     ;
@@ -98,12 +98,6 @@ STYLE_PROPERTY_VALUE ::= URL
 
 TERNARY ::= START_CON CONDITION QMK STYLE_PROPERTY_VALUE_LIST OR STYLE_PROPERTY_VALUE_LIST END_CON;
 
-CONDITION ::= CONDITION_NAME COL CONDITION_VALUE;
-
-CONDITION_NAME ::= ORIENTATION
-    | SIZE_CON
-    ;
-
-CONDITION_VALUE ::= SIZE
-    | ORIENTATION_TYPE
+CONDITION ::= ORIENTATION COL ORIENTATION_TYPE
+    | SIZE_CON COL SIZE
     ;
