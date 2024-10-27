@@ -18,8 +18,8 @@ terminal String MEDIA, ORIENTATION, ORIENTATION_TYPE, SIZE_CON;
 non terminal STYLE_SHEET;
 non terminal Block BLOCK;
 non terminal List<Block> BLOCK_LIST;
-non terminal MEDIA_BLOCK;
-non terminal MEDIA_BLOCK_LIST;
+non terminal MediaBlock MEDIA_BLOCK;
+non terminal List<MediaBlock> MEDIA_BLOCK_LIST;
 
 non terminal CssSelector SELECTOR;
 non terminal SelectorGroup SELECTOR_GROUP;
