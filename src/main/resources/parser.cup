@@ -7,7 +7,7 @@ import parserUtils.nonterminals.styleproperty.propertyvalue.*;
 import parserUtils.nonterminals.selector.*;
 import parserUtils.nonterminals.Inheritance;
 
-terminal LPAR, RPAR, COM, LBRACE, RBRACE, COL,
+terminal COM, LBRACE, RBRACE, COL,
             QMK, RAROW, SCOL, IMPORTANT, CHILD_SELECTOR, OR, START_CON, END_CON, START_INH, END_INH;
 terminal String CLASS, ID, TAG;
 terminal String URL, SIZE, ATTRIBUTE, ATTRIBUTE_VALUE, FONT_FAMILY, FONT;
@@ -45,6 +45,8 @@ BLOCK_LIST ::= BLOCK_LIST BLOCK
 MEDIA_BLOCK_LIST ::= MEDIA_BLOCK_LIST MEDIA_BLOCK
     | MEDIA_BLOCK
     ;
+
+MEDIA_BLOCK ::= MEDIA LBRACE BLOCK_LIST RBRACE;
 
 BLOCK ::= SELECTOR LBRACE STYLE_PROPERTY_LIST RBRACE;
 

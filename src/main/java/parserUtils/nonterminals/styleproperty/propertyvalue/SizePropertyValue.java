@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class SizePropertyValue extends SelectorPropertyValue {
-    private int value;
+    private Integer value;
     private MeasurementType measurementType;
     private String rawValue;
 }

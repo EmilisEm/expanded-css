@@ -57,8 +57,6 @@ font             = (\"{sentence}\")|{identifier}
 
 %%
 <YYINITIAL> {
-    "(" {return ParseUtils.symbol(sym.LPAR);}
-    ")" {return ParseUtils.symbol(sym.RPAR);}
     "," {return ParseUtils.symbol(sym.COM);}
     "{" {return ParseUtils.symbol(sym.LBRACE);}
     "}" {return ParseUtils.symbol(sym.RBRACE);}
