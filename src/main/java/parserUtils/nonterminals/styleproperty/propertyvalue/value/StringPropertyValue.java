@@ -1,4 +1,4 @@
-package parserUtils.nonterminals.styleproperty.propertyvalue;
+package parserUtils.nonterminals.styleproperty.propertyvalue.value;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

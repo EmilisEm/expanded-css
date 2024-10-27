@@ -3,7 +3,7 @@ package parserUtils.nonterminals.styleproperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import parserUtils.nonterminals.styleproperty.propertyvalue.PropertyValue;
+import parserUtils.nonterminals.styleproperty.propertyvalue.value.PropertyValue;
 
 import java.util.List;
 

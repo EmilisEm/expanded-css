@@ -1,8 +1,9 @@
-package parserUtils.nonterminals.styleproperty.propertyvalue;
+package parserUtils.nonterminals.styleproperty.propertyvalue.ternary;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import parserUtils.nonterminals.styleproperty.propertyvalue.value.PropertyValue;
 
 import java.util.List;
 

@@ -1,10 +1,11 @@
 package cssParser;
 
 import java_cup.runtime.*;
-import parserUtils.nonterminals.*;
 import java.util.List;
-import parserUtils.nonterminals.styleproperty.propertyvalue.*;
+import parserUtils.nonterminals.*;
 import parserUtils.nonterminals.styleproperty.*;
+import parserUtils.nonterminals.styleproperty.propertyvalue.ternary.*;
+import parserUtils.nonterminals.styleproperty.propertyvalue.value.*;
 import parserUtils.nonterminals.selector.*;
 import parserUtils.nonterminals.Inheritance;
 
