@@ -3,6 +3,7 @@ package parserUtils.nonterminals;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import parserUtils.nonterminals.selector.CssSelectorValue;
 
 import java.util.List;
 
@@ -10,5 +11,5 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 public class Inheritance {
-    private List<String> inherited;
+    private List<CssSelectorValue> inherited;
 }
