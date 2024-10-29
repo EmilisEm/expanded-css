@@ -56,9 +56,11 @@ MEDIA_BLOCK ::= MEDIA:type LBRACE DEF_BLOCK_LIST:blocks RBRACE {: RESULT = new M
     ;
 
 BLOCK ::= SELECTOR:selector LBRACE STYLE_PROPERTY_LIST:style_props RBRACE {: RESULT = new SelectorBlock(selector, style_props); :}
+    | SELECTOR:selector LBRACE RBRACE {: RESULT = new SelectorBlock(selector, List.of()); :}
     ;
 
 SELECTOR ::= SELECTOR_GROUP:selector_gr INHERITANCE:inh IMPORTANT {: RESULT = new CssSelector(selector_gr, inh, true); :}
+    | SELECTOR_GROUP:selector_gr IMPORTANT INHERITANCE:inh {: RESULT = new CssSelector(selector_gr, inh, true); :}
     | SELECTOR_GROUP:selector_gr INHERITANCE:inh {: RESULT = new CssSelector(selector_gr, inh, false); :}
     | SELECTOR_GROUP:selector_gr IMPORTANT {: RESULT = new CssSelector(selector_gr, null, true); :}
     | SELECTOR_GROUP:selector_gr {: RESULT = new CssSelector(selector_gr, null, false); :}

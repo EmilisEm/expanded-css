@@ -45,7 +45,7 @@ public class Main {
             System.exit(1);
         }
 
-        System.out.println(val.value.toString());
+        System.out.println(prettyPrintStyleSheet(val.value.toString()));
 
     }
 
@@ -107,6 +107,6 @@ public class Main {
     }
 
     private static String getIndentation(int level) {
-        return "  ".repeat(Math.max(0, level));  // 4 spaces per indentation level
+        return "  ".repeat(Math.max(0, level));
     }
 }

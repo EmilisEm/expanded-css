@@ -12,8 +12,8 @@ public class ParserTest {
     @Test
     public void parseSampleTest() {
         try {
-            var answerReader = new BufferedReader(new FileReader("src/test/java/testdata/simple/output_parser.txt"));
-            var input = new FileReader("src/test/java/testdata/simple/input.txt");
+            var answerReader = new BufferedReader(new FileReader("src/test/java/testdata/basic/output_parser.txt"));
+            var input = new FileReader("src/test/java/testdata/basic/input.txt");
             var lexer = new Lexer(input);
             var parser = new CssParser(lexer);
 
@@ -23,10 +23,23 @@ public class ParserTest {
         }
     }
 
+    @Test
+    public void parseExpandedDataTest() {
+        try {
+            var answerReader = new BufferedReader(new FileReader("src/test/java/testdata/selector/output_parser.txt"));
+            var input = new FileReader("src/test/java/testdata/selector/input.txt");
+            var lexer = new Lexer(input);
+            var parser = new CssParser(lexer);
+
+            validateParserOutput(parser, answerReader.readLine());
+        } catch (IOException e) {
+            fail();
+        }
+    }
 
     private void validateParserOutput(CssParser parser, String expected) {
         try {
-            assertEquals(expected, parser.parse().value);
+            assertEquals(expected, parser.parse().value.toString());
         } catch (Exception e) {
             fail();
         }
