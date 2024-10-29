@@ -12,6 +12,5 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 public class StyleSheet {
-    List<SelectorBlock> selectorBlocks;
-    List<MediaBlock> mediaBlocks;
+    List<Block> selectorBlocks;
 }

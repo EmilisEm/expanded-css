@@ -2,6 +2,7 @@ package cssParser;
 
 import java_cup.runtime.*;
 import java.util.List;
+import java.util.ArrayList;
 import parserUtils.ParseUtils;
 import parserUtils.nonterminals.*;
 import parserUtils.nonterminals.styleproperty.*;
@@ -17,10 +18,9 @@ terminal String URL, SIZE, ATTRIBUTE, ATTRIBUTE_VALUE, FONT_FAMILY, FONT;
 terminal String MEDIA, ORIENTATION, ORIENTATION_TYPE, SIZE_CON;
 
 non terminal StyleSheet STYLE_SHEET;
-non terminal Block BLOCK;
-non terminal List<Block> BLOCK_LIST;
+non terminal SelectorBlock BLOCK;
 non terminal MediaBlock MEDIA_BLOCK;
-non terminal List<MediaBlock> MEDIA_BLOCK_LIST;
+non terminal List<Block> DEF_BLOCK_LIST;
 
 non terminal CssSelector SELECTOR;
 non terminal SelectorGroup SELECTOR_GROUP;
@@ -41,25 +41,21 @@ non terminal TernaryCondition CONDITION;
 
 start with STYLE_SHEET;
 
-STYLE_SHEET ::= BLOCK_LIST:blocks MEDIA_BLOCK_LIST:media_blocks {: RESULT = new StyleSheet(blocks, media_blocks); :}
-    | BLOCK_LIST:blocks {: RESULT = new StyleSheet(blocks, null); :}
-    | MEDIA_BLOCK_LIST:media_blocks {: RESULT = new StyleSheet(null, media_blocks); :}
+STYLE_SHEET ::= DEF_BLOCK_LIST:blocks {: RESULT = new StyleSheet(blocks); :}
     |
     ;
 
-BLOCK_LIST ::= BLOCK_LIST:l BLOCK:block {: l.add(block); RESULT = l; :}
-    | BLOCK:b {: RESULT = ParseUtils.listOf(b); :}
+DEF_BLOCK_LIST ::= DEF_BLOCK_LIST:l BLOCK:block {: l.add(block); RESULT = l; :}
+    | DEF_BLOCK_LIST:l MEDIA_BLOCK:block {: l.add(block); RESULT = l; :}
+    | BLOCK:block {: var blocks = new ArrayList<Block>(); blocks.add(block); RESULT = blocks; :}
+    | MEDIA_BLOCK:block {: var blocks = new ArrayList<Block>(); blocks.add(block); RESULT = blocks; :}
     ;
 
-MEDIA_BLOCK_LIST ::= MEDIA_BLOCK_LIST:l MEDIA_BLOCK:b {: l.add(b); RESULT = l; :}
-    | MEDIA_BLOCK:b {: RESULT = ParseUtils.listOf(b); :}
-    ;
-
-MEDIA_BLOCK ::= MEDIA:type LBRACE BLOCK_LIST:blocks RBRACE {: RESULT = new MediaBlock(ParseUtils.parseMediaType(type), blocks); :}
+MEDIA_BLOCK ::= MEDIA:type LBRACE DEF_BLOCK_LIST:blocks RBRACE {: RESULT = new MediaBlock(ParseUtils.parseMediaType(type), blocks); :}
     | MEDIA error:e RBRACE {: parser.report_error("Error parsing media block", e); :}
     ;
 
-BLOCK ::= SELECTOR:selector LBRACE STYLE_PROPERTY_LIST:style_props RBRACE {: RESULT = new Block(selector, style_props); :}
+BLOCK ::= SELECTOR:selector LBRACE STYLE_PROPERTY_LIST:style_props RBRACE {: RESULT = new SelectorBlock(selector, style_props); :}
     | error:e RBRACE {: parser.report_error("Error parsing selector", e); :}
     ;
 

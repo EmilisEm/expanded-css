@@ -3,7 +3,6 @@ package parserUtils;
 import lombok.experimental.UtilityClass;
 import parserUtils.nonterminals.MediaType;
 import parserUtils.nonterminals.styleproperty.propertyvalue.ternary.ConditionType;
-import parserUtils.nonterminals.styleproperty.propertyvalue.ternary.TernaryCondition;
 import parserUtils.nonterminals.styleproperty.propertyvalue.value.SizePropertyValue;
 
 import java.util.ArrayList;

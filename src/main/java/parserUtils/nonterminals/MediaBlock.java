@@ -13,5 +13,5 @@ import java.util.List;
 @ToString
 public class MediaBlock implements Block {
     private MediaType type;
-    private List<SelectorBlock> selectorBlocks;
+    private List<Block> selectorBlocks;
 }
