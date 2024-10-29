@@ -88,8 +88,10 @@ INHERITANCE_LIST ::= INHERITANCE_LIST:l COM SELECTOR_VALUE:v {: l.add(v); RESULT
     ;
 
 STYLE_PROPERTY_LIST ::= STYLE_PROPERTY_LIST:l STYLE_PROPERTY:v SCOL {: l.add(v); RESULT = l; :}
+    | STYLE_PROPERTY_LIST:l STYLE_PROPERTY:v {: l.add(v); RESULT = l; :}
     | STYLE_PROPERTY:v SCOL {: RESULT = ParseUtils.listOf(v); :}
-    | error:e SCOL {: parser.report_error("Error parsing properties", e); :}
+    | STYLE_PROPERTY:v {: RESULT = ParseUtils.listOf(v); :}
+    | error:e RBRACE {: parser.report_error("Error parsing properties", e); :}
     ;
 
 STYLE_PROPERTY ::= ATTRIBUTE:a COL STYLE_PROPERTY_VALUE_LIST:l {: RESULT = new StyleProperty(a, l); :}
