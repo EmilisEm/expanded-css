@@ -77,6 +77,7 @@
                 </executions>
                 <configuration>
                     <cupSourceDirectory>src/main/resources</cupSourceDirectory>
+                    <parserName>CssParser</parserName>
                 </configuration>
             </plugin>
             <plugin>

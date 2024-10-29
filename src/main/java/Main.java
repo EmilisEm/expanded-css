@@ -1,12 +1,13 @@
+import cssParser.CssParser;
 import cssParser.sym;
 import java_cup.runtime.Symbol;
 import scanner.Lexer;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.io.PrintStream;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Main {
@@ -36,26 +37,18 @@ public class Main {
         }
 
         var lexer = new Lexer(input);
-        Symbol symbol = null;
-        System.out.print("# Parsed lexemes\r\n\r\n");
-        System.out.print("| Lexeme name               | Lexeme value                              |\r\n");
-        System.out.print("|---------------------------|-------------------------------------------|\r\n");
-        do {
-            try {
-                symbol = lexer.next_token();
-                // debug
-                // System.out.println(getSymbolDebug(symbol));
+        var parser = new CssParser(lexer);
+        Symbol val = null;
+        try {
+            val = parser.parse();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("Something went wrong :( ");
+            System.exit(1);
+        }
 
-                // actual
-                // To lazy to make it so that the columns are perfect width. Looks good enough in markdown
-                System.out.printf("| %-25s | %-41s |\r\n", getFieldName(symbol.sym), Objects.requireNonNullElse(symbol.value, ""));
-            } catch (IOException e) {
-                System.err.println(e.getMessage());
-                System.exit(1);
-            } catch (IllegalArgumentException e) {
-                System.err.println(e.getMessage());
-            }
-        } while (symbol == null || symbol.sym != sym.EOF);
+        System.err.println(val.value);
+
     }
 
     // debug method

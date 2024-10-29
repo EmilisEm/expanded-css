@@ -6,6 +6,8 @@ import parserUtils.nonterminals.styleproperty.propertyvalue.ternary.ConditionTyp
 import parserUtils.nonterminals.styleproperty.propertyvalue.ternary.TernaryCondition;
 import parserUtils.nonterminals.styleproperty.propertyvalue.value.SizePropertyValue;
 
+import java.util.ArrayList;
+
 import static parserUtils.nonterminals.styleproperty.propertyvalue.ternary.ConditionType.*;
 import static parserUtils.nonterminals.styleproperty.propertyvalue.value.MeasurementType.EM;
 import static parserUtils.nonterminals.styleproperty.propertyvalue.value.MeasurementType.PX;
@@ -54,5 +56,12 @@ public class ParseUtils {
             case "HORIZONTAL" -> HORIZONTAL;
             default -> throw new IllegalArgumentException("Failed to parse orientation value");
         };
+    }
+
+    public static <T> ArrayList<T> listOf(T value) {
+        ArrayList<T> list = new ArrayList<>();
+        list.add(value);
+
+        return list;
     }
 }
