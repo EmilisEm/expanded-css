@@ -1,90 +1,90 @@
-body {
-	background-attachment: fixed; background-color: white; background-position: left top; background-repeat: no-repeat; color: black; font-family: arial, sans-serif;
-margin: 2em 1em 2em 70px;
+BODY {
+	BACKGROUND-ATTACHMENT: fixed; BACKGROUND-COLOR: white; BACKGROUND-POSITION: left top; BACKGROUND-REPEAT: no-repeat; COLOR: black; FONT-FAMILY: Arial, sans-serif;
+MARGIN: 2em 1em 2em 70px
 }
-th {
-	font-family: arial, sans-serif;
+TH {
+	FONT-FAMILY: Arial, sans-serif
 }
-td {
-	font-family: arial, sans-serif;
+TD {
+	FONT-FAMILY: Arial, sans-serif
 }
-h1 {
-	color: #0050b2; font-family: tahoma, verdana, "myriad web", syntax, sans-serif; font-weight: normal; text-align: left;
+H1 {
+	COLOR: #0050b2; FONT-FAMILY: Tahoma, Verdana, "Myriad Web", Syntax, sans-serif; FONT-WEIGHT: normal; TEXT-ALIGN: left
 }
-h2 {
-	color: #0050b2; font-family: tahoma, verdana, "myriad web", syntax, sans-serif; font-weight: normal; text-align: left;
+H2 {
+	COLOR: #0050b2; FONT-FAMILY: Tahoma, Verdana, "Myriad Web", Syntax, sans-serif; FONT-WEIGHT: normal; TEXT-ALIGN: left
 }
-h3 {
-	color: #0050b2; font-family: tahoma, verdana, "myriad web", syntax, sans-serif; font-weight: normal; text-align: left;
-}
-.hide {
-	display: none;
-}
-div.head {
-	margin-bottom: 1em;
-}
-div.head h1 {
-	clear: both; margin-top: 2em;
-}
-div.head table {
-	margin-left: 2em; margin-top: 2em;
-}
-div.head img {
-	border-bottom: medium none; border-left: medium none; border-right: medium none; border-top: medium none; color: white;
-}
-p.copyright {
-	font-size: smaller;
-}
-
-@media screen
-{
-a:hover {
-	background: #ffa;
-}
-    }
-pre {
-	margin-left: 2em;
-}
-dt {
-	margin-bottom: 0px; margin-top: 0px;
-}
-dd {
-	margin-bottom: 0px; margin-top: 0px;
-}
-dt {
-	font-weight: bold;
-}
-pre {
-	font-family: monospace;
-}
-ul.toc {
-	list-style: none;
-}
-
-@media aural
-{
-h1 {
-	stress: 20; richness: 90;
-}
-h2 {
-	stress: 20; richness: 90;
-}
-h3 {
-	stress: 20; richness: 90;
+H3 {
+	COLOR: #0050b2; FONT-FAMILY: Tahoma, Verdana, "Myriad Web", Syntax, sans-serif; FONT-WEIGHT: normal; TEXT-ALIGN: left
 }
 .hide {
-	speak: none;
+	DISPLAY: none
 }
-p.copyright {
-	volume: x-soft; speech-rate: x-fast;
+DIV.head {
+	MARGIN-BOTTOM: 1em
 }
-dt {
-	pause-before: 20%;
+DIV.head H1 {
+	CLEAR: both; MARGIN-TOP: 2em
 }
-pre {
-	speak-punctuation: code;
+DIV.head TABLE {
+	MARGIN-LEFT: 2em; MARGIN-TOP: 2em
+}
+DIV.head IMG {
+	BORDER-BOTTOM: medium none; BORDER-LEFT: medium none; BORDER-RIGHT: medium none; BORDER-TOP: medium none; COLOR: white
+}
+P.copyright {
+	FONT-SIZE: smaller
+}
+
+@media Screen
+{
+A:hover {
+	BACKGROUND: #ffa
 }
     }
-body {
-	background-image: url(http://www.w3.org/stylesheets/tr/rec.gif);
+PRE {
+	MARGIN-LEFT: 2em
+}
+DT {
+	MARGIN-BOTTOM: 0px; MARGIN-TOP: 0px
+}
+DD {
+	MARGIN-BOTTOM: 0px; MARGIN-TOP: 0px
+}
+DT {
+	FONT-WEIGHT: bold
+}
+PRE {
+	FONT-FAMILY: monospace
+}
+UL.toc {
+	LIST-STYLE: none
+}
+
+@media Aural
+{
+H1 {
+	stress: 20; richness: 90
+}
+H2 {
+	stress: 20; richness: 90
+}
+H3 {
+	stress: 20; richness: 90
+}
+.hide {
+	speak: none
+}
+P.copyright {
+	volume: x-soft; speech-rate: x-fast
+}
+DT {
+	pause-before: 20%
+}
+PRE {
+	speak-punctuation: code
+}
+    }
+BODY {
+	BACKGROUND-IMAGE: url(http://www.w3.org/StyleSheets/TR/REC.gif)
 }

@@ -45,7 +45,7 @@ public class Main {
             System.exit(1);
         }
 
-        System.out.println(prettyPrintStyleSheet(val.value.toString()));
+        System.out.println(val.value.toString());
 
     }
 
