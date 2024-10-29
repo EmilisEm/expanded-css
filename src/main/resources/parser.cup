@@ -51,9 +51,11 @@ MEDIA_BLOCK_LIST ::= MEDIA_BLOCK_LIST:l MEDIA_BLOCK:b {: l.add(b); RESULT = l; :
     ;
 
 MEDIA_BLOCK ::= MEDIA:type LBRACE BLOCK_LIST:blocks RBRACE {: RESULT = new MediaBlock(ParseUtils.parseMediaType(type), blocks); :}
+    | MEDIA LBRACE error:e RBRACE {: parser.report_error("Error parsing media block", e); :}
     ;
 
 BLOCK ::= SELECTOR:selector LBRACE STYLE_PROPERTY_LIST:style_props RBRACE {: RESULT = new Block(selector, style_props); :}
+    | error:e RBRACE {: parser.report_error("Error parsing selector", e); :}
     ;
 
 SELECTOR ::= SELECTOR_GROUP:selector_gr INHERITANCE:inh IMPORTANT {: RESULT = new CssSelector(selector_gr, inh, true); :}
@@ -76,6 +78,7 @@ SELECTOR_GROUP ::= SELECTOR_GROUP:g SELECTOR_RELATIONSHIP:r SELECTOR_VALUE:v {: 
     ;
 
 INHERITANCE ::= START_INH INHERITANCE_LIST:l END_INH {: RESULT = new Inheritance(l); :}
+    | error:e END_INH {: parser.report_error("Error parsing inheritance", e); :}
     ;
 
 INHERITANCE_LIST ::= INHERITANCE_LIST:l COM SELECTOR_VALUE:v {: l.add(v); RESULT = l; :}
@@ -84,6 +87,7 @@ INHERITANCE_LIST ::= INHERITANCE_LIST:l COM SELECTOR_VALUE:v {: l.add(v); RESULT
 
 STYLE_PROPERTY_LIST ::= STYLE_PROPERTY_LIST:l STYLE_PROPERTY:v SCOL {: l.add(v); RESULT = l; :}
     | STYLE_PROPERTY:v SCOL {: RESULT = List.of(v); :}
+    | error:e SCOL {: parser.report_error("Error parsing properties", e); :}
     ;
 
 STYLE_PROPERTY ::= ATTRIBUTE:a COL STYLE_PROPERTY_VALUE_LIST:l {: RESULT = new StyleProperty(a, l); :}
@@ -106,6 +110,7 @@ STYLE_PROPERTY_VALUE ::= URL:v {: RESULT = new UrlPropertyValue(v); :}
     ;
 
 TERNARY ::= START_CON CONDITION:c QMK STYLE_PROPERTY_VALUE_LIST:r OR STYLE_PROPERTY_VALUE_LIST:l END_CON {: RESULT = new Ternary(c, r, l); :}
+    | error:e END_CON {: parser.report_error("Error parsing ternary", e); :}
     ;
 
 CONDITION ::= ORIENTATION:o COL ORIENTATION_TYPE:t {: RESULT = new TernaryCondition(ParseUtils.getOrientation(o), t); :}
