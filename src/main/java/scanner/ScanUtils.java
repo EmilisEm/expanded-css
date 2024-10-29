@@ -2,7 +2,7 @@ package scanner;
 import cssParser.sym;
 import java_cup.runtime.Symbol;
 
-public abstract class ParseUtils {
+public abstract class ScanUtils {
     public static Symbol symbol(int type, Object value) {
         return new Symbol(type, value);
     }

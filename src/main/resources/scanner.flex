@@ -1,7 +1,7 @@
 package scanner;
 
 import java_cup.runtime.Symbol;
-import scanner.ParseUtils;
+import scanner.ScanUtils;
 import cssParser.sym;
 import java.io.IOException;
 
@@ -57,111 +57,111 @@ font             = (\"{sentence}\")|{identifier}
 
 %%
 <YYINITIAL> {
-    "," {return ParseUtils.symbol(sym.COM);}
-    "{" {return ParseUtils.symbol(sym.LBRACE);}
-    "}" {return ParseUtils.symbol(sym.RBRACE);}
+    "," {return ScanUtils.symbol(sym.COM);}
+    "{" {return ScanUtils.symbol(sym.LBRACE);}
+    "}" {return ScanUtils.symbol(sym.RBRACE);}
 
-    {media} {return ParseUtils.symbol(sym.MEDIA, ParseUtils.parseMedia(yytext()));}
+    {media} {return ScanUtils.symbol(sym.MEDIA, ScanUtils.parseMedia(yytext()));}
     {selector} {
-        yybegin(SELECTOR);
-        return ParseUtils.getSelector(yytext());
+            yybegin(SELECTOR);
+            return ScanUtils.getSelector(yytext());
 
-    }
+        }
     {whitespace} { }
     . {throw new IllegalArgumentException("Unexpected token at " + yyline + ":" + yycolumn);}
 }
 
 <SELECTOR> {
-    "!important" {return ParseUtils.symbol(sym.IMPORTANT);}
-    ">"/{selector} {return ParseUtils.symbol(sym.RAROW);}
+    "!important" {return ScanUtils.symbol(sym.IMPORTANT);}
+    ">"/{selector} {return ScanUtils.symbol(sym.RAROW);}
     "(" {
-        yybegin(INHERATANCE);
-        return ParseUtils.symbol(sym.START_INH);
-    }
+            yybegin(INHERATANCE);
+            return ScanUtils.symbol(sym.START_INH);
+        }
     "{"/{whitespace}*({attribute}|}) {
-        yybegin(ATTRIBUTE);
-        return ParseUtils.symbol(sym.LBRACE);
-    }
-    {gap}/{selector} {return ParseUtils.symbol(sym.CHILD_SELECTOR);}
-    {selector} {return ParseUtils.getSelector(yytext());}
+            yybegin(ATTRIBUTE);
+            return ScanUtils.symbol(sym.LBRACE);
+        }
+    {gap}/{selector} {return ScanUtils.symbol(sym.CHILD_SELECTOR);}
+    {selector} {return ScanUtils.getSelector(yytext());}
     {whitespace} { }
     . {throw new IllegalArgumentException("Unexpected token in selector at " + yyline + ":" + yycolumn);}
 }
 
 <INHERATANCE> {
-    "," {return ParseUtils.symbol(sym.COM);}
+    "," {return ScanUtils.symbol(sym.COM);}
     ")" {
-        yybegin(SELECTOR);
-        return ParseUtils.symbol(sym.END_INH);
-    }
-    {selector}/[,)] {return ParseUtils.getSelector(yytext());}
+            yybegin(SELECTOR);
+            return ScanUtils.symbol(sym.END_INH);
+        }
+    {selector}/[,)] {return ScanUtils.getSelector(yytext());}
     {whitespace} { }
     . {throw new IllegalArgumentException("Unexpected token in inheratance at " + yyline + ":" + yycolumn);}
 }
 
 <ATTRIBUTE> {
     ":" {
-        yybegin(ATTRIBUTE_VALUE);
-        return ParseUtils.symbol(sym.COL);
-    }
+            yybegin(ATTRIBUTE_VALUE);
+            return ScanUtils.symbol(sym.COL);
+        }
     "}" {
-        yybegin(YYINITIAL);
-        return ParseUtils.symbol(sym.RBRACE);
-    }
+            yybegin(YYINITIAL);
+            return ScanUtils.symbol(sym.RBRACE);
+        }
     {font_family}/{whitespace}*:{whitespace}*{font} {
-        yybegin(FONT_FAMILY);
-        return ParseUtils.symbol(sym.FONT_FAMILY);
-    }
-    {attribute}/{whitespace}*: {return ParseUtils.symbol(sym.ATTRIBUTE, yytext());}
+            yybegin(FONT_FAMILY);
+            return ScanUtils.symbol(sym.FONT_FAMILY);
+        }
+    {attribute}/{whitespace}*: {return ScanUtils.symbol(sym.ATTRIBUTE, yytext());}
     {whitespace} { }
     . {throw new IllegalArgumentException("Unexpected token in attribute at " + yyline + ":" + yycolumn);}
 }
 
 <FONT_FAMILY> {
     ";" {
-        yybegin(ATTRIBUTE);
-        return ParseUtils.symbol(sym.SCOL);
-    }
-    ":"/{whitespace}*{font} {return ParseUtils.symbol(sym.COL);}
+            yybegin(ATTRIBUTE);
+            return ScanUtils.symbol(sym.SCOL);
+        }
+    ":"/{whitespace}*{font} {return ScanUtils.symbol(sym.COL);}
     "}" {
-        yybegin(YYINITIAL);
-        return ParseUtils.symbol(sym.RBRACE);
-    }
-    ","/{whitespace}*{font} {return ParseUtils.symbol(sym.COM);}
+            yybegin(YYINITIAL);
+            return ScanUtils.symbol(sym.RBRACE);
+        }
+    ","/{whitespace}*{font} {return ScanUtils.symbol(sym.COM);}
 
-    {font}/{whitespace}*[,;}] {return ParseUtils.symbol(sym.FONT, yytext());}
+    {font}/{whitespace}*[,;}] {return ScanUtils.symbol(sym.FONT, yytext());}
     {whitespace} { }
     . {throw new IllegalArgumentException("Unexpected token in font family at " + yyline + ":" + yycolumn);}
 }
 
 <ATTRIBUTE_VALUE> {
     ";" {
-        yybegin(ATTRIBUTE);
-        return ParseUtils.symbol(sym.SCOL);
-    }
+            yybegin(ATTRIBUTE);
+            return ScanUtils.symbol(sym.SCOL);
+        }
     "}" {
-        yybegin(YYINITIAL);
-        return ParseUtils.symbol(sym.RBRACE);
-    }
+            yybegin(YYINITIAL);
+            return ScanUtils.symbol(sym.RBRACE);
+        }
     "|" {
-        yybegin(CONDITIONAL_CONDITION_TYPE);
-        return ParseUtils.symbol(sym.START_CON);
-    }
-    {url} {return ParseUtils.symbol(sym.URL, ParseUtils.parseUrl(yytext()));}
-    {attribute_value} {return ParseUtils.symbol(sym.ATTRIBUTE_VALUE, yytext());}
+            yybegin(CONDITIONAL_CONDITION_TYPE);
+            return ScanUtils.symbol(sym.START_CON);
+        }
+    {url} {return ScanUtils.symbol(sym.URL, ScanUtils.parseUrl(yytext()));}
+    {attribute_value} {return ScanUtils.symbol(sym.ATTRIBUTE_VALUE, yytext());}
     {whitespace} { }
     . {throw new IllegalArgumentException("Unexpected token in attribute value at " + yyline + ":" + yycolumn);}
 }
 
 <CONDITIONAL_CONDITION_TYPE> {
     ":" {
-        yybegin(CONDITIONAL_CONDITION_VALUE);
-        return ParseUtils.symbol(sym.COL);
-    }
+            yybegin(CONDITIONAL_CONDITION_VALUE);
+            return ScanUtils.symbol(sym.COL);
+        }
 
-    {orientation}/{whitespace}*:{whitespace}*{orientation_type} {return ParseUtils.symbol(sym.ORIENTATION);}
+    {orientation}/{whitespace}*:{whitespace}*{orientation_type} {return ScanUtils.symbol(sym.ORIENTATION);}
 
-    {size_condition}/{whitespace}*:{whitespace}*{size_mesurement} {return ParseUtils.symbol(sym.SIZE_CON, yytext());}
+    {size_condition}/{whitespace}*:{whitespace}*{size_mesurement} {return ScanUtils.symbol(sym.SIZE_CON, yytext());}
 
     {whitespace} { }
     . {throw new IllegalArgumentException("Unexpected token in conditional type at " + yyline + ":" + yycolumn);}
@@ -169,11 +169,11 @@ font             = (\"{sentence}\")|{identifier}
 
 <CONDITIONAL_CONDITION_VALUE> {
     "?" {
-        yybegin(CONDITIONAL_VALUE1);
-        return ParseUtils.symbol(sym.QMK);
-    }
-    {orientation_type} {return ParseUtils.symbol(sym.ORIENTATION_TYPE, yytext());}
-    {size_mesurement} {return ParseUtils.symbol(sym.SIZE, yytext());}
+            yybegin(CONDITIONAL_VALUE1);
+            return ScanUtils.symbol(sym.QMK);
+        }
+    {orientation_type} {return ScanUtils.symbol(sym.ORIENTATION_TYPE, yytext());}
+    {size_mesurement} {return ScanUtils.symbol(sym.SIZE, yytext());}
 
     {whitespace} { }
     . {throw new IllegalArgumentException("Unexpected token in conditional type attribute at " + yyline + ":" + yycolumn);}
@@ -181,20 +181,20 @@ font             = (\"{sentence}\")|{identifier}
 
 <CONDITIONAL_VALUE1> {
     ":" {
-        yybegin(CONDITIONAL_VALUE2);
-        return ParseUtils.symbol(sym.OR);
-    }
-    {attribute_value} {return ParseUtils.symbol(sym.ATTRIBUTE_VALUE, yytext());}
+            yybegin(CONDITIONAL_VALUE2);
+            return ScanUtils.symbol(sym.OR);
+        }
+    {attribute_value} {return ScanUtils.symbol(sym.ATTRIBUTE_VALUE, yytext());}
 
     {whitespace} { }
     . {throw new IllegalArgumentException("Unexpected token in conditional attribute at " + yyline + ":" + yycolumn);}
 }
 <CONDITIONAL_VALUE2> {
     "|" {
-        yybegin(ATTRIBUTE_VALUE);
-        return ParseUtils.symbol(sym.END_CON);
-    }
-    {attribute_value} {return ParseUtils.symbol(sym.ATTRIBUTE_VALUE, yytext());}
+            yybegin(ATTRIBUTE_VALUE);
+            return ScanUtils.symbol(sym.END_CON);
+        }
+    {attribute_value} {return ScanUtils.symbol(sym.ATTRIBUTE_VALUE, yytext());}
 
     {whitespace} { }
     . {throw new IllegalArgumentException("Unexpected token in conditional attribute at " + yyline + ":" + yycolumn);}
