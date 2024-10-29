@@ -9,7 +9,8 @@ import lombok.ToString;
 @ToString
 public enum SelectorRelationshipType {
     DESCENDENT(" "),
-    DIR_DESCENDENT(">");
+    DIR_DESCENDENT(">"),
+    CONJUNCTION("");
 
     private final String type;
 }

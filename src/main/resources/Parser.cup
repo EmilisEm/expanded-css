@@ -56,13 +56,13 @@ MEDIA_BLOCK ::= MEDIA:type LBRACE DEF_BLOCK_LIST:blocks RBRACE {: RESULT = new M
     ;
 
 BLOCK ::= SELECTOR:selector LBRACE STYLE_PROPERTY_LIST:style_props RBRACE {: RESULT = new SelectorBlock(selector, style_props); :}
-    | error:e RBRACE {: parser.report_error("Error parsing selector", e); :}
     ;
 
 SELECTOR ::= SELECTOR_GROUP:selector_gr INHERITANCE:inh IMPORTANT {: RESULT = new CssSelector(selector_gr, inh, true); :}
     | SELECTOR_GROUP:selector_gr INHERITANCE:inh {: RESULT = new CssSelector(selector_gr, inh, false); :}
     | SELECTOR_GROUP:selector_gr IMPORTANT {: RESULT = new CssSelector(selector_gr, null, true); :}
     | SELECTOR_GROUP:selector_gr {: RESULT = new CssSelector(selector_gr, null, false); :}
+    | error:e RBRACE {: parser.report_error("Error parsing selector", e); :}
     ;
 
 SELECTOR_VALUE ::= CLASS:s {: RESULT = new CssSelectorValue(s, CssSelectorType.CLASS); :}
@@ -75,7 +75,8 @@ SELECTOR_RELATIONSHIP ::= RAROW {: RESULT = SelectorRelationshipType.DIR_DESCEND
     ;
 
 SELECTOR_GROUP ::= SELECTOR_GROUP:g SELECTOR_RELATIONSHIP:r SELECTOR_VALUE:v {: g.getSelectors().add(v); g.getRelationshipTypes().add(r); RESULT = g; :}
-    | SELECTOR_VALUE:v {: RESULT = new SelectorGroup(ParseUtils.listOf(v), List.of()); :}
+    | SELECTOR_GROUP:g SELECTOR_VALUE:v {: g.getSelectors().add(v); g.getRelationshipTypes().add(SelectorRelationshipType.CONJUNCTION); RESULT = g; :}
+    | SELECTOR_VALUE:v {: RESULT = new SelectorGroup(ParseUtils.listOf(v), new ArrayList<SelectorRelationshipType>()); :}
     ;
 
 INHERITANCE ::= START_INH INHERITANCE_LIST:l END_INH {: RESULT = new Inheritance(l); :}
@@ -97,7 +98,7 @@ STYLE_PROPERTY ::= ATTRIBUTE:a COL STYLE_PROPERTY_VALUE_LIST:l {: RESULT = new S
     | FONT_FAMILY:a COL TERNARY:v {: RESULT = new StyleProperty(a, ParseUtils.listOf(v)); :}
     ;
 
-FONT_LIST ::= FONT_LIST:l FONT:f {: l.add(new StringPropertyValue(f)); RESULT = l; :}
+FONT_LIST ::= FONT_LIST:l COM FONT:f {: l.add(new StringPropertyValue(f)); RESULT = l; :}
     | FONT:f {: RESULT = ParseUtils.listOf(new StringPropertyValue(f)); :}
     ;
 
