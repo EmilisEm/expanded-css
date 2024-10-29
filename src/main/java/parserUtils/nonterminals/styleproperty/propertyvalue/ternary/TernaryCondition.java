@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public abstract class TernaryCondition {
+public class TernaryCondition {
     private ConditionType type;
     private String value;
 }

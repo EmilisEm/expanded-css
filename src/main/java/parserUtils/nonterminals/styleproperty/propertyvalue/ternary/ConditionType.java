@@ -8,10 +8,10 @@ import lombok.Getter;
 public enum ConditionType {
     VERTICAL("VERTICAL"),
     HORIZONTAL("HORIZONTAL"),
-    WIDTH_MIN("WIDTH_MIN"),
-    WIDTH_MAX("WIDTH_MAX"),
-    HEIGHT_MIN("HEIGHT_MIN"),
-    HEIGHT_MAX("HEIGHT_MAX");
+    MIN_WIDTH("MIN-WIDTH"),
+    MAX_WIDTH("MAX-WIDTH"),
+    MIN_HEIGHT("MIN-HEIGHT"),
+    MAX_HEIGHT("MAX-HEIGHT");
 
     private final String value;
 }
