@@ -1,4 +1,4 @@
-﻿# 2 labaratorinis darbas. Skaneris CSS plėtiniui. 
+﻿# 3 labaratorinis darbas. Parseris CSS plėtiniui. 
 
 ## Padarė emkl9266
 
@@ -10,7 +10,7 @@ Skaneris skirtas CSS plėtiniui, kuris leidžia:
 - klasių atributų paveldėjimą
 
 
-## Kaip dėstytojui
+## Kaip MIF kompiuteriui 
 
 ### Apie programą
 
