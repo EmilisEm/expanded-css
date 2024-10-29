@@ -11,4 +11,5 @@ import parserUtils.nonterminals.Inheritance;
 public class CssSelector {
     private SelectorGroup selectorGroup;
     private Inheritance inheritance;
+    private boolean important;
 }
