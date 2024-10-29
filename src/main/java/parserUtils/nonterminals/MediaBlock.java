@@ -11,7 +11,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @ToString
-public class MediaBlock {
+public class MediaBlock implements Block {
     private MediaType type;
-    private List<Block> blocks;
+    private List<SelectorBlock> selectorBlocks;
 }
