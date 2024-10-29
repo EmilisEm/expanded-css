@@ -2,6 +2,7 @@ package cssParser;
 
 import java_cup.runtime.*;
 import java.util.List;
+import parserUtils.ParseUtils;
 import parserUtils.nonterminals.*;
 import parserUtils.nonterminals.styleproperty.*;
 import parserUtils.nonterminals.styleproperty.propertyvalue.ternary.*;
@@ -33,75 +34,80 @@ non terminal StyleProperty STYLE_PROPERTY;
 non terminal List<StyleProperty> STYLE_PROPERTY_LIST;
 non terminal PropertyValue STYLE_PROPERTY_VALUE;
 non terminal List<PropertyValue> STYLE_PROPERTY_VALUE_LIST;
-non terminal List<String> FONT_LIST;
+non terminal List<PropertyValue> FONT_LIST;
 
 non terminal Ternary TERNARY;
 non terminal TernaryCondition CONDITION;
 
-STYLE_SHEET ::= BLOCK_LIST MEDIA_BLOCK_LIST;
-
-BLOCK_LIST ::= BLOCK_LIST BLOCK
-    | BLOCK
+STYLE_SHEET ::= BLOCK_LIST:blocks MEDIA_BLOCK_LIST:media_blocks {: RESULT = new StyleSheet(blocks, media_blocks); :}
     ;
 
-MEDIA_BLOCK_LIST ::= MEDIA_BLOCK_LIST MEDIA_BLOCK
-    | MEDIA_BLOCK
+BLOCK_LIST ::= BLOCK_LIST:l BLOCK:block {: l.add(block); RESULT = l; :}
+    | BLOCK:b {: RESULT = List.of(b); :}
     ;
 
-MEDIA_BLOCK ::= MEDIA LBRACE BLOCK_LIST RBRACE;
-
-BLOCK ::= SELECTOR LBRACE STYLE_PROPERTY_LIST RBRACE;
-
-SELECTOR ::= SELECTOR_GROUP INHERITANCE IMPORTANT
-    | SELECTOR_GROUP INHERITANCE
-    | SELECTOR_GROUP IMPORTANT
-    | SELECTOR_GROUP
+MEDIA_BLOCK_LIST ::= MEDIA_BLOCK_LIST:l MEDIA_BLOCK:b {: l.add(b); RESULT = l; :}
+    | MEDIA_BLOCK:b {: RESULT = List.of(b); :}
     ;
 
-SELECTOR_VALUE ::= CLASS
-    | ID
-    | TAG
+MEDIA_BLOCK ::= MEDIA:type LBRACE BLOCK_LIST:blocks RBRACE {: RESULT = new MediaBlock(ParseUtils.parseMediaType(type), blocks); :}
     ;
 
-SELECTOR_RELATIONSHIP ::= RAROW
-    | CHILD_SELECTOR
+BLOCK ::= SELECTOR:selector LBRACE STYLE_PROPERTY_LIST:style_props RBRACE {: RESULT = new Block(selector, style_props); :}
     ;
 
-SELECTOR_GROUP ::= SELECTOR_GROUP SELECTOR_RELATIONSHIP SELECTOR_VALUE
-    | SELECTOR_VALUE
+SELECTOR ::= SELECTOR_GROUP:selector_gr INHERITANCE:inh IMPORTANT {: RESULT = new CssSelector(selector_gr, inh, true); :}
+    | SELECTOR_GROUP:selector_gr INHERITANCE:inh {: RESULT = new CssSelector(selector_gr, inh, false); :}
+    | SELECTOR_GROUP:selector_gr IMPORTANT {: RESULT = new CssSelector(selector_gr, null, true); :}
+    | SELECTOR_GROUP:selector_gr {: RESULT = new CssSelector(selector_gr, null, false); :}
     ;
 
-INHERITANCE ::= START_INH INHERITANCE_LIST END_INH;
-
-INHERITANCE_LIST ::= INHERITANCE_LIST COM SELECTOR_VALUE
-    | SELECTOR_VALUE
+SELECTOR_VALUE ::= CLASS:s {: RESULT = new CssSelectorValue(s, CssSelectorType.CLASS); :}
+    | ID:s {: RESULT = new CssSelectorValue(s, CssSelectorType.ID); :}
+    | TAG:s {: RESULT = new CssSelectorValue(s, CssSelectorType.TAG); :}
     ;
 
-STYLE_PROPERTY_LIST ::= STYLE_PROPERTY_LIST STYLE_PROPERTY SCOL
-    | STYLE_PROPERTY SCOL
+SELECTOR_RELATIONSHIP ::= RAROW {: RESULT = SelectorRelationshipType.DIR_DESCENDENT; :}
+    | CHILD_SELECTOR {: RESULT = SelectorRelationshipType.DESCENDENT; :}
     ;
 
-STYLE_PROPERTY ::= ATTRIBUTE COL STYLE_PROPERTY_VALUE_LIST
-    | ATTRIBUTE COL TERNARY
-    | FONT_FAMILY COL FONT_LIST
-    | FONT_FAMILY COL TERNARY
+SELECTOR_GROUP ::= SELECTOR_GROUP:g SELECTOR_RELATIONSHIP:r SELECTOR_VALUE:v {: g.getSelectors().add(v); g.getRelationshipTypes().add(r); RESULT = g; :}
+    | SELECTOR_VALUE:v {: RESULT = new SelectorGroup(List.of(v), List.of()); :}
     ;
 
-FONT_LIST ::= FONT_LIST FONT
-    | FONT
+INHERITANCE ::= START_INH INHERITANCE_LIST:l END_INH {: RESULT = new Inheritance(l); :}
     ;
 
-STYLE_PROPERTY_VALUE_LIST ::= STYLE_PROPERTY_VALUE_LIST STYLE_PROPERTY_VALUE
-    | STYLE_PROPERTY_VALUE
+INHERITANCE_LIST ::= INHERITANCE_LIST:l COM SELECTOR_VALUE:v {: l.add(v); RESULT = l; :}
+    | SELECTOR_VALUE:s {: RESULT = List.of(s); :}
     ;
 
-STYLE_PROPERTY_VALUE ::= URL
-    | SIZE
-    | ATTRIBUTE_VALUE
+STYLE_PROPERTY_LIST ::= STYLE_PROPERTY_LIST:l STYLE_PROPERTY:v SCOL {: l.add(v); RESULT = l; :}
+    | STYLE_PROPERTY:v SCOL {: RESULT = List.of(v); :}
     ;
 
-TERNARY ::= START_CON CONDITION QMK STYLE_PROPERTY_VALUE_LIST OR STYLE_PROPERTY_VALUE_LIST END_CON;
+STYLE_PROPERTY ::= ATTRIBUTE:a COL STYLE_PROPERTY_VALUE_LIST:l {: RESULT = new StyleProperty(a, l); :}
+    | ATTRIBUTE:a COL TERNARY:v {: RESULT = new StyleProperty(a, List.of(v)); :}
+    | FONT_FAMILY:a COL FONT_LIST:v {: RESULT = new StyleProperty(a, v); :}
+    | FONT_FAMILY:a COL TERNARY:v {: RESULT = new StyleProperty(a, List.of(v)); :}
+    ;
 
-CONDITION ::= ORIENTATION COL ORIENTATION_TYPE
-    | SIZE_CON COL SIZE
+FONT_LIST ::= FONT_LIST:l FONT:f {: l.add(new StringPropertyValue(f)); RESULT = l; :}
+    | FONT:f {: RESULT = List.of(new StringPropertyValue(f)); :}
+    ;
+
+STYLE_PROPERTY_VALUE_LIST ::= STYLE_PROPERTY_VALUE_LIST:l STYLE_PROPERTY_VALUE:v {: l.add(v); RESULT = l; :}
+    | STYLE_PROPERTY_VALUE:v {: RESULT = List.of(v); :}
+    ;
+
+STYLE_PROPERTY_VALUE ::= URL:v {: RESULT = new UrlPropertyValue(v); :}
+    | SIZE:v {: RESULT = ParseUtils.parseSizeValue(v); :}
+    | ATTRIBUTE_VALUE:v {: RESULT = new StringPropertyValue(v); :}
+    ;
+
+TERNARY ::= START_CON CONDITION:c QMK STYLE_PROPERTY_VALUE_LIST:r OR STYLE_PROPERTY_VALUE_LIST:l END_CON {: RESULT = new Ternary(c, r, l); :}
+    ;
+
+CONDITION ::= ORIENTATION:o COL ORIENTATION_TYPE:t {: RESULT = new TernaryCondition(ParseUtils.getOrientation(o), t); :}
+    | SIZE_CON:s COL SIZE:v {: RESULT = new TernaryCondition(ParseUtils.getSizeCondition(s), v); :}
     ;
